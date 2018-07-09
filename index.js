@@ -1,16 +1,20 @@
 const express = require('express')
-var cors = require('cors')
 const app = express()
-const knex = require('./knex')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const port = process.env.PORT || 3001
+const books = require('./routes/books.js')
 
 app.use(cors())
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 
-app.get('/books', function (req, res) {
-  knex.select('image', 'title', 'author', 'year', 'pages').from('books').then((books)=> {
-    res.send(books)
-  })
-})
 
-app.listen(3001, () => console.log('Example app listening on port 3001!'))
+app.use(bodyParser.json())
+
+app.use('/books', books)
+
+
+app.listen(port, () => console.log('Example app listening on port ' + port))

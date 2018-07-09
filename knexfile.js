@@ -4,23 +4,11 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: process.env.PG_CONNECTION_STRING || 'postgres://localhost/tower'
-  }
-
-  // production: {
-  //   client: 'postgresql',
-  //   connection: {
-  //     database: 'my_db',
-  //     user:     'username',
-  //     password: 'password'
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     tableName: 'knex_migrations'
-  //   }
-  // }
+    connection: 'postgres://localhost/tower'
+  },
+  production: {
+   client: 'pg',
+   connection: process.env.DATABASE_URL + '?ssl=true'
+ }
 
 };
