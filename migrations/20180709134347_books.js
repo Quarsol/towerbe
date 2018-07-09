@@ -8,6 +8,9 @@ exports.up = function(knex) {
     table.string('year').notNullable().defaultTo('');
     table.string('pages').notNullable().defaultTo('');
     table.timestamps(true, true);
+    table.integer('profile_id')
+          .references('profile.id')
+          .onDelete('cascade')
   });
 };
 
