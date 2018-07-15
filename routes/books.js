@@ -9,22 +9,22 @@ router.get('/', (req, res, next) => {
   }).catch(next)
 })
 
-// router.delete("/:id", (request, response, next) => {
-//     queries.delete(request.params.id)
-//     .then(() => {
-//         queries.list()
-//         .then(reviews => {
-//         console.log('insidedelete', reviews)
-//         response.json({reviews})
-//         })
-// }).catch(next);
-// })
-
 router.delete("/:id", (request, response, next) => {
-    query.deleteBook(request.params.id).then(() => {
-        response.sendStatus(204);
-    }).catch(next);
-});
+    query.deleteBook(request.params.id)
+    .then(() => {
+        query.getBooks()
+        .then(books => {
+        console.log('insidedelete', books)
+        response.json({books})
+        })
+}).catch(next);
+})
+
+// router.delete("/:id", (request, response, next) => {
+//     query.deleteBook(request.params.id).then(() => {
+//         response.sendStatus(204);
+//     }).catch(next);
+// });
 
 router.post("/", (request, response, next) => {
         query.createBook(request.body).then(book => {
